@@ -21,8 +21,15 @@
         <meta property="og:title" content="@yield('title', $siteSettings->meta_title)">
         <meta property="og:description" content="@yield('description', $siteSettings->meta_description)">
         <meta property="og:image" content="@yield('og_image', $siteSettings->logo ? asset('storage/' . $siteSettings->logo) : '')">
+        <meta property="og:image:secure_url" content="@yield('og_image', $siteSettings->logo ? asset('storage/' . $siteSettings->logo) : '')">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="@yield('og_type', 'website')">
+        <meta property="og:site_name" content="{{ $siteSettings->site_name ?? config('app.name', 'Laravel') }}">
+        <link rel="canonical" href="{{ url()->current() }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="@yield('title', $siteSettings->meta_title)">
+        <meta name="twitter:description" content="@yield('description', $siteSettings->meta_description)">
+        <meta name="twitter:image" content="@yield('og_image', $siteSettings->logo ? asset('storage/' . $siteSettings->logo) : '')">
     @endif
 
     <!-- Fonts -->

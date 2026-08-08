@@ -1,6 +1,16 @@
 @extends('layouts.public')
 
-@section('title', $post->title . ' - ' . $siteSettings->site_name)
+@php
+    $seoDescription = $post->meta_description ?: ($post->excerpt ?: Str::limit(strip_tags($post->content), 160));
+    $seoImage = $post->featured_image
+        ? asset('storage/' . $post->featured_image)
+        : ($siteSettings->logo ? asset('storage/' . $siteSettings->logo) : '');
+@endphp
+
+@section('title', $post->meta_title ?: $post->title)
+@section('description', $seoDescription)
+@section('og_image', $seoImage)
+@section('og_type', 'article')
 
 @section('content')
 <div class="container py-5">
