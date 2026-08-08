@@ -11,7 +11,11 @@ class ThemeHelper
      */
     public static function generateDynamicCSS()
     {
-        $settings = SiteSetting::first();
+        try {
+            $settings = SiteSetting::first();
+        } catch (\Throwable $e) {
+            return '';
+        }
         
         if (!$settings) {
             return '';
@@ -229,7 +233,11 @@ class ThemeHelper
      */
     public static function generateAdminCSS()
     {
-        $settings = SiteSetting::first();
+        try {
+            $settings = SiteSetting::first();
+        } catch (\Throwable $e) {
+            return '';
+        }
         
         if (!$settings) {
             return '';

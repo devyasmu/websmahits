@@ -36,14 +36,17 @@ class MenuController extends Controller
             'parent_id' => 'nullable|exists:menus,id',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
+            'show_in_bottom_nav' => 'boolean',
+            'icon' => 'nullable|string|max:100',
         ]);
 
-        $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data = $request->only(['title', 'url', 'target', 'parent_id', 'order', 'icon']);
+        $data['is_active'] = $request->boolean('is_active');
+        $data['show_in_bottom_nav'] = $request->boolean('show_in_bottom_nav');
 
         \App\Models\Menu::create($data);
 
-        return redirect()->route('menus.index')
+        return redirect()->route('admin.menus.index')
             ->with('success', 'Menu berhasil ditambahkan.');
     }
 
@@ -75,14 +78,17 @@ class MenuController extends Controller
             'parent_id' => 'nullable|exists:menus,id',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
+            'show_in_bottom_nav' => 'boolean',
+            'icon' => 'nullable|string|max:100',
         ]);
 
-        $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data = $request->only(['title', 'url', 'target', 'parent_id', 'order', 'icon']);
+        $data['is_active'] = $request->boolean('is_active');
+        $data['show_in_bottom_nav'] = $request->boolean('show_in_bottom_nav');
 
         $menu->update($data);
 
-        return redirect()->route('menus.index')
+        return redirect()->route('admin.menus.index')
             ->with('success', 'Menu berhasil diperbarui.');
     }
 
@@ -92,7 +98,7 @@ class MenuController extends Controller
     public function destroy(\App\Models\Menu $menu)
     {
         $menu->delete();
-        return redirect()->route('menus.index')
+        return redirect()->route('admin.menus.index')
             ->with('success', 'Menu berhasil dihapus.');
     }
 }

@@ -25,6 +25,7 @@
                                     <th>Parent</th>
                                     <th>Urutan</th>
                                     <th>Status</th>
+                                    <th>Navbar Bawah (mobile)</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -53,6 +54,13 @@
                                             <span class="badge bg-success">Aktif</span>
                                         @else
                                             <span class="badge bg-secondary">Tidak Aktif</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($menu->show_in_bottom_nav)
+                                            <span class="badge bg-primary" title="Tampil di navbar bawah mobile"><i class="bi bi-phone"></i> Ya</span>
+                                        @else
+                                            <span class="text-muted">-</span>
                                         @endif
                                     </td>
                                     <td>

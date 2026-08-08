@@ -34,7 +34,8 @@
                                     <td>
                                         @if($program->featured_image)
                                             <img src="{{ asset('storage/' . $program->featured_image) }}" alt="{{ $program->title }}" 
-                                                 class="img-thumbnail" style="width: 80px; height: 60px; object-fit: cover;">
+                                                 class="img-thumbnail" style="width: 80px; height: 60px; object-fit: cover;"
+                                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2260%22%3E%3Crect fill=%22%23e9ecef%22 width=%2280%22 height=%2260%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%236c757d%22 font-size=%2210%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22sans-serif%22%3ENo image%3C/text%3E%3C/svg%3E';">
                                         @else
                                             <div class="bg-light d-flex align-items-center justify-content-center" 
                                                  style="width: 80px; height: 60px;">

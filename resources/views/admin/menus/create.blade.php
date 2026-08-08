@@ -86,6 +86,34 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="show_in_bottom_nav" name="show_in_bottom_nav" 
+                                   value="1" {{ old('show_in_bottom_nav') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="show_in_bottom_nav">
+                                Tampil di navbar bawah (mobile)
+                            </label>
+                        </div>
+                        <div class="form-text">Centang agar menu ini muncul di bar navigasi bawah saat tampilan mobile.</div>
+                        @error('show_in_bottom_nav')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="icon" class="form-label">Ikon (untuk navbar bawah)</label>
+                        <input type="text" class="form-control @error('icon') is-invalid @enderror" 
+                               id="icon" name="icon" value="{{ old('icon') }}" placeholder="bi-house-door">
+                        <div class="form-text mb-1">Kelas ikon Bootstrap Icons. Gunakan format: <code>bi-nama-ikon</code> (contoh: bi-house-door, bi-newspaper, bi-images). Kosongkan = ikon default.</div>
+                        <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener noreferrer" class="form-text d-inline-flex align-items-center">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Lihat daftar kode ikon Bootstrap Icons <span class="ms-1">(buka di tab baru)</span>
+                        </a>
+                        <div class="form-text mt-1">Contoh cepat: bi-house-door (Beranda), bi-newspaper (Berita), bi-images (Galeri), bi-download (Download), bi-envelope (Kontak), bi-info-circle (Tentang).</div>
+                        @error('icon')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary me-2">
                             <i class="bi bi-arrow-left"></i> Kembali

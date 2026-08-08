@@ -16,10 +16,13 @@ class Menu extends Model
         'parent_id',
         'order',
         'is_active',
+        'show_in_bottom_nav',
+        'icon',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'show_in_bottom_nav' => 'boolean',
     ];
 
     public function parent()
@@ -45,5 +48,13 @@ class Menu extends Model
     public function scopeRoot($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    /**
+     * Scope: menu yang ditampilkan di navbar bawah (mobile).
+     */
+    public function scopeInBottomNav($query)
+    {
+        return $query->where('show_in_bottom_nav', true);
     }
 }
