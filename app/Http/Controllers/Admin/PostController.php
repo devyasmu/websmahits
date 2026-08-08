@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -45,6 +46,7 @@ class PostController extends Controller
 
         $data = $request->all();
         $data['user_id'] = auth()->id();
+        $data['slug'] = $this->makeUniqueSlug($request->title);
         $data['is_published'] = $request->has('is_published');
         $data['is_featured'] = $request->has('is_featured');
 
@@ -56,6 +58,24 @@ class PostController extends Controller
 
         return redirect()->route('admin.admin-posts.index')
             ->with('success', 'Post berhasil ditambahkan.');
+    }
+
+    private function makeUniqueSlug(string $title, ?int $ignoreId = null): string
+    {
+        $baseSlug = Str::slug($title);
+        $slug = $baseSlug;
+        $counter = 2;
+
+        while (
+            \App\Models\Post::where('slug', $slug)
+                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+                ->exists()
+        ) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 
     /**
