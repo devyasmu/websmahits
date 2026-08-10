@@ -50,15 +50,15 @@
                     <!-- Post Meta -->
                     <div class="d-flex flex-wrap align-items-center mb-3">
                         <span class="badge me-2 mb-2" style="background-color: var(--primary-color); color: white;">
-                            {{ $post->category->name }}
+                            {{ $post->category->name ?? 'Tanpa Kategori' }}
                         </span>
                         <small class="text-muted me-3 mb-2">
                             <i class="bi bi-calendar3 me-1"></i>
-                            {{ $post->published_at->format('d F Y') }}
+                            {{ ($post->published_at ?? $post->created_at)->format('d F Y') }}
                         </small>
                         <small class="text-muted mb-2">
                             <i class="bi bi-clock me-1"></i>
-                            {{ $post->published_at->format('H:i') }}
+                            {{ ($post->published_at ?? $post->created_at)->format('H:i') }}
                         </small>
                     </div>
 
@@ -126,7 +126,7 @@
                                             </a>
                                         </h6>
                                         <small class="text-muted">
-                                            {{ $relatedPost->published_at->format('d M Y') }}
+                                            {{ ($relatedPost->published_at ?? $relatedPost->created_at)->format('d M Y') }}
                                         </small>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                                         </h6>
                                         <small class="text-muted">
                                             <i class="bi bi-calendar3 me-1"></i>
-                                            {{ $otherPost->published_at->format('d M Y') }}
+                                            {{ ($otherPost->published_at ?? $otherPost->created_at)->format('d M Y') }}
                                         </small>
                                         @if($otherPost->category)
                                             <div class="mt-1">

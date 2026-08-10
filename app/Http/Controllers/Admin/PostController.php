@@ -49,6 +49,7 @@ class PostController extends Controller
         $data['slug'] = $this->makeUniqueSlug($request->title);
         $data['is_published'] = $request->has('is_published');
         $data['is_featured'] = $request->has('is_featured');
+        $data['published_at'] = $this->resolvePublishedAt($data['is_published'], $request->published_at);
 
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
@@ -116,6 +117,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['is_published'] = $request->has('is_published');
         $data['is_featured'] = $request->has('is_featured');
+        $data['published_at'] = $this->resolvePublishedAt($data['is_published'], $request->published_at);
 
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
@@ -136,5 +138,14 @@ class PostController extends Controller
 
         return redirect()->route('admin.admin-posts.index')
             ->with('success', 'Post berhasil dihapus.');
+    }
+
+    private function resolvePublishedAt(bool $isPublished, ?string $publishedAt): mixed
+    {
+        if (!empty($publishedAt)) {
+            return $publishedAt;
+        }
+
+        return $isPublished ? now() : null;
     }
 }

@@ -415,7 +415,7 @@
                     <div class="card-body-modern">
                         <div class="post-meta">
                             <span class="category-badge" style="background-color: {{ $post->category->color }} }};">
-                                {{ $post->category->name }}
+                                {{ $post->category->name ?? 'Tanpa Kategori' }}
                             </span>
                             <span class="post-date">{{ $post->created_at->format('d M Y') }}</span>
                         </div>
